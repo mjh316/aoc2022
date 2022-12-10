@@ -1,0 +1,29 @@
+lines = open('main.in', 'r').read().splitlines()
+
+X = 1
+cycles = 0
+a = [20, 60, 100, 140, 180, 220]
+N = 6
+M = 40
+grid [['.' for i in range(M)] for j in range(N)]
+print(grid)
+
+ans = 0
+for line in lines:
+    if line == 'noop':
+        cycles += 1
+        if cycles in a:
+            print(cycles, X)
+            ans += cycles * X
+    elif line.startswith('addx'):
+        cycles += 2
+        b = None
+        if cycles in a:
+            b = cycles
+        elif(cycles - 1) in a:
+            b = cycles - 1
+        if b:
+            print(b, X, b*X)
+            ans += b * X
+        X += int(line.split(' ')[1])
+print(ans)
